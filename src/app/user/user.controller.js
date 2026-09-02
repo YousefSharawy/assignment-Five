@@ -20,7 +20,18 @@ const updateUser = async (req, res, next) => {
         next(error)
     }
 }
+
+const getUserByEmail = async (req, res, next) => {
+    try {
+        const email = req.query.email;
+        const user = await userService.getUserByEmail(email);
+        res.status(200).json({success: true, "user": user });
+    } catch (error) {
+        next(error)
+    }
+}
 module.exports = {
     createUser,
-    updateUser
+    updateUser,
+    getUserByEmail,
 }

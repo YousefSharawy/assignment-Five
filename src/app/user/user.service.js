@@ -18,8 +18,15 @@ async function createUser(name, email, password) {
 async function updateUser(id, updates) {
     return await userRepo.createOrUpdate(id, updates);
 }
-
+async function getUserByEmail(email) {
+    const user = await userRepo.getUserByEmail(email);
+    if (!user) {
+        throw new Error("User not found");
+    }
+    return user;
+}
 module.exports = {
     createUser,
     updateUser,
+    getUserByEmail
 }

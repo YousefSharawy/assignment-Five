@@ -14,7 +14,7 @@ async function createUser(name, email, password) {
             email: email,
             password: password
         },
-        omit: { password :true}
+        omit: { password: true }
     });
 }
 async function createOrUpdate(id, updates) {
@@ -31,8 +31,16 @@ async function createOrUpdate(id, updates) {
             email: updates.email,
             password: updates.password
         },
-        omit: {password : true}
+        omit: { password: true }
     });
+}
+async function getUserByEmail(email) {
+    return await prisma.user.findUnique({
+        where: {
+            email: email
+        },
+        omit:{password : true}
+    })
 }
 
 module.exports = {
@@ -40,4 +48,5 @@ module.exports = {
     checkUserExistanceByEmail,
     createUser,
     createOrUpdate,
+    getUserByEmail
 }
