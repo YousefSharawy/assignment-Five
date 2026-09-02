@@ -7,7 +7,8 @@ const userRouter = require('./src/app/user/user.route');
 
 app.use(express.json());
 
-app.use('/user', userRouter)
+app.use('/users', userRouter)
+
 
 
 app.use((req, res) => {

@@ -14,12 +14,30 @@ async function createUser(name, email, password) {
             email: email,
             password: password
         },
-        omit : {password}
+        omit: { password :true}
+    });
+}
+async function createOrUpdate(id, updates) {
+    return await prisma.user.upsert({
+        where: {
+            id: Number(id),
+        },
+        update: {
+            name: updates.name,
+            email: updates.email
+        },
+        create: {
+            name: updates.name,
+            email: updates.email,
+            password: updates.password
+        },
+        omit: {password : true}
     });
 }
 
 module.exports = {
-    checkUserExistanceById, 
+    checkUserExistanceById,
     checkUserExistanceByEmail,
-    createUser
+    createUser,
+    createOrUpdate,
 }

@@ -15,9 +15,11 @@ async function createUser(name, email, password) {
     const hashedPassword = await bcrypt.hash(password, 10);
     return await userRepo.createUser(name, email, hashedPassword);
 }
-
-
+async function updateUser(id, updates) {
+    return await userRepo.createOrUpdate(id, updates);
+}
 
 module.exports = {
-    createUser
+    createUser,
+    updateUser,
 }

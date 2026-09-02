@@ -9,7 +9,7 @@ const authGuard = async (req, res, next) => {
         if (!token) { throw new Error("token is missing") }
         const payload = jwt.verify(token, process.env.JWT_SECRET)
         const id = payload.id;
-        const userExistance = userRepo.checkUserExistance(id);
+        const userExistance = userRepo.checkUserExistanceById(id);
         if (!userExistance) { throw new Error("User not found") }
         req.user = payload;
         next();
