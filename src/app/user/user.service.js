@@ -25,8 +25,15 @@ async function getUserByEmail(email) {
     }
     return user;
 }
+async function getUserById(id) {
+    const user = await userRepo.getUserById(id);
+    if (!user) {
+        throw new Error("User not found");
+    }
+    return user;
+}
 module.exports = {
     createUser,
     updateUser,
-    getUserByEmail
+    getUserByEmail, getUserById
 }

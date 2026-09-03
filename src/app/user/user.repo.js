@@ -39,14 +39,25 @@ async function getUserByEmail(email) {
         where: {
             email: email
         },
-        omit:{password : true}
+        omit: { password: true }
     })
 }
-
+async function getUserById(id) {
+    return await prisma.user.findUnique({
+        where: {
+            id: Number(id)
+        },
+        omit: {
+            password: true,
+            role: true
+        }
+    });
+}
 module.exports = {
     checkUserExistanceById,
     checkUserExistanceByEmail,
     createUser,
     createOrUpdate,
-    getUserByEmail
+    getUserByEmail,
+    getUserById
 }
