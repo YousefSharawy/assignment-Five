@@ -5,7 +5,7 @@ async function createNewPost(title, content, user) {
         data: {
             title: title,
             content: content,
-            user: user.id,
+            userId: user.id,
         }
     }
     );
@@ -21,7 +21,28 @@ async function deletePostById(id) {
         });
     }
     catch (error) {
-        throw new Error ("Post can't be deleted");
+        throw new Error("Post can't be deleted");
     }
 }
-module.exports = { createNewPost, deletePostById }
+
+async function getAllPosts() {
+    return await prisma.post.findMany({
+        select: {
+            id: true,
+            title: true,
+            user: {
+                select: {
+                    id: true,
+                    name: true,
+                    comments: {
+                        select: {
+                            id: true,
+                            content: true,
+                        }
+                    }
+                }
+            }
+        }
+    });
+}
+module.exports = { createNewPost, deletePostById, getAllPosts }

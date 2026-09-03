@@ -20,8 +20,17 @@ const deletePostById = async (req, res, next) => {
     }
 }
 
+const getAllPosts = async (req,res,next)=>{
+    try {
+       const posts = await userService.getAllPosts();
+        res.status(200).json({ message: "Post are retrieved successfully", success: true, post: posts });
+    } catch (error) {
+        next(error)
+    }
+}
+
 module.exports = {
     createNewPost,
     deletePostById,
-
+    getAllPosts
 }
