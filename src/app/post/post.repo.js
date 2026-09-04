@@ -45,4 +45,26 @@ async function getAllPosts() {
         }
     });
 }
-module.exports = { createNewPost, deletePostById, getAllPosts }
+
+
+async function getAllPostsWIthCommentCount() {
+    const posts = await prisma.post.findMany({
+        select: {
+            id: true,
+            title: true,
+            _count: {
+                select: {
+                    comments: true,
+                }
+            }
+        }
+    });
+    return posts.map(post => ({
+        id: post.id,
+        title: post.title,
+        commentCount: post._count.comments
+    }
+    ));
+
+}
+module.exports = { createNewPost, deletePostById, getAllPosts, getAllPostsWIthCommentCount }

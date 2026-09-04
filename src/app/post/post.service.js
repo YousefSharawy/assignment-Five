@@ -9,8 +9,13 @@ async function deletePostById(id) {
 async function getAllPosts() {
     return await postRepo.getAllPosts();
 }
+
+async function getAllPostsWIthCommentCount() {
+    return await postRepo.getAllPostsWIthCommentCount();
+}
 module.exports =  { 
     createNewPost,
     deletePostById,
-    getAllPosts
+    getAllPosts,
+    getAllPostsWIthCommentCount
 }
