@@ -5,11 +5,13 @@ const app = express();
 
 const userRouter = require('./src/app/user/user.route');
 const postRouter = require('./src/app/post/post.route');
+const commentsRouter = require('./src/app/comments/comments.route');
 
 app.use(express.json());
 
-app.use('/users', userRouter)
-app.use('/posts', postRouter)
+app.use('/users', userRouter);
+app.use('/posts', postRouter);
+app.use('/comments', commentsRouter);
 
 
 
