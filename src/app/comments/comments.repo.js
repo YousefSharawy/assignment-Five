@@ -58,11 +58,23 @@ async function retrieveTheThreeMostRecentComments(postId) {
         take:3
     });
 }
+async function getSpecificCommentByPK(id) {
+    return await prisma.comment.findUnique({
+        where:{
+            id:id,
+        },
+        include:{
+            user:true,
+            post:true,
+        }
+    });
+}
 module.exports = {
     createComments,
     createComment,
     updateCommentContent,
     findCommentForPostOrCreate,
     findCommentsWithSpecificWordAndCount,
-    retrieveTheThreeMostRecentComments
+    retrieveTheThreeMostRecentComments,
+    getSpecificCommentByPK
 }

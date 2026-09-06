@@ -64,10 +64,22 @@ const retrieveTheThreeMostRecentComments = async (req, res, next) => {
         next(error);
     }
 }
+const getSpecificCommentByPK = async (req, res, next) => {
+    const id = Number(req.params.id);
+    try {
+        const respopnse = await commentService.getSpecificCommentByPK(id);
+        res.status(200).json({
+          comment:respopnse
+        });
+    } catch (error) {
+        next(error);
+    }
+}
 module.exports = {
     createComments,
     updateCommentContent,
     findCommentForPostOrCreate,
     findCommentsWithSpecificWordAndCount,
-    retrieveTheThreeMostRecentComments
+    retrieveTheThreeMostRecentComments,
+    getSpecificCommentByPK
 }

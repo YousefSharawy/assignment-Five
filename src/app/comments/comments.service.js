@@ -28,9 +28,13 @@ async function findCommentsWithSpecificWordAndCount(word) {
 async function retrieveTheThreeMostRecentComments(postId) {
     return await commentRepo.retrieveTheThreeMostRecentComments(postId)
 }
+async function getSpecificCommentByPK(id) {
+    return await commentRepo.getSpecificCommentByPK(id)
+}
 module.exports = {
     createComments,
     updateCommentContent,
     findCommentForPostOrCreate,
     retrieveTheThreeMostRecentComments,
+    getSpecificCommentByPK
 }
