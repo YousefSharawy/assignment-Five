@@ -5,12 +5,12 @@ async function createComments(comments) {
         data: comments
     });
 }
-async function createComment(postId,userId,content) {
+async function createComment(postId, userId, content) {
     return await prisma.comment.create({
         data: {
-             postId:postId,
-            userId:userId,
-            content:content, 
+            postId: postId,
+            userId: userId,
+            content: content,
         }
     });
 }
@@ -25,19 +25,32 @@ async function updateCommentContent(id, userId, newContent) {
         }
     });
 }
-async function findCommentForPostOrCreate(postId,userId,content) {
-    const commentExistence =  await prisma.comment.findFirst({
-        where:{
-            postId:postId,
-            userId:userId,
-            content:content,
+async function findCommentForPostOrCreate(postId, userId, content) {
+    const commentExistence = await prisma.comment.findFirst({
+        where: {
+            postId: postId,
+            userId: userId,
+            content: content,
         }
     });
-   return commentExistence;
+    return commentExistence;
+}
+async function findCommentsWithSpecificWordAndCount(word) {
+    const comments = await prisma.comment.findMany({
+        where: {
+            content: {
+                contains: word,
+                mode: "insensitive"
+            },
+        },
+    });
+    return { comments, count: comments.length };
+
 }
 module.exports = {
     createComments,
     createComment,
     updateCommentContent,
-    findCommentForPostOrCreate
+    findCommentForPostOrCreate,
+    findCommentsWithSpecificWordAndCount
 }

@@ -19,9 +19,9 @@ const updateCommentContent = async (req, res, next) => {
     const commentId = Number(req.params.commentId);
     const { userId, content } = req.body;
     try {
-        await commentService.updateCommentContent(commentId,userId,content);
+        await commentService.updateCommentContent(commentId, userId, content);
         res.status(200).json({
-            message : "Comment updated",
+            message: "Comment updated",
         });
     } catch (error) {
         next(error);
@@ -30,11 +30,24 @@ const updateCommentContent = async (req, res, next) => {
 }
 
 const findCommentForPostOrCreate = async (req, res, next) => {
-    const { postID ,userId, content } = req.body;
+    const { postID, userId, content } = req.body;
     try {
-        const comment = await commentService.findCommentForPostOrCreate(postID,userId,content);
+        const comment = await commentService.findCommentForPostOrCreate(postID, userId, content);
         res.status(200).json({
-            comment:comment,
+            comment: comment,
+        });
+    } catch (error) {
+        next(error);
+    }
+
+}
+const findCommentsWithSpecificWordAndCount = async (req, res, next) => {
+    const word = req.query.word;
+    try {
+        const commentsWithWordAndCount = await commentService.findCommentsWithSpecificWordAndCount(word);
+        res.status(200).json({
+            count: commentsWithWordAndCount.count,
+            comments: commentsWithWordAndCount.comments,
         });
     } catch (error) {
         next(error);
@@ -45,5 +58,6 @@ const findCommentForPostOrCreate = async (req, res, next) => {
 module.exports = {
     createComments,
     updateCommentContent,
-    findCommentForPostOrCreate
+    findCommentForPostOrCreate,
+    findCommentsWithSpecificWordAndCount
 }
