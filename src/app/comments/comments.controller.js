@@ -15,6 +15,21 @@ const createComments = async (req, res, next) => {
     }
 }
 
+const updateCommentContent = async (req, res, next) => {
+    const commentId = Number(req.params.commentId);
+    const { userId, content } = req.body;
+    try {
+        await commentService.updateCommentContent(commentId,userId,content);
+        res.status(200).json({
+            message : "Comment updated",
+        });
+    } catch (error) {
+        next(error);
+    }
+
+}
+
 module.exports = {
-    createComments
+    createComments,
+    updateCommentContent
 }
