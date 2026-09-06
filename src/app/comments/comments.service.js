@@ -15,7 +15,15 @@ async function updateCommentContent(id,userId,newContent) {
     }
     return await commentRepo.updateCommentContent(id,userId,newContent);
 }
+async function findCommentForPostOrCreate(postId,userId,content) {
+    let comment = await commentRepo.findCommentForPostOrCreate(postId,userId,content);
+    if(!comment){
+        comment = await commentRepo.createComment(postId,userId,content);
+    }
+    return comment;
+}
 module.exports = {
     createComments,
-    updateCommentContent
+    updateCommentContent,
+    findCommentForPostOrCreate
 }

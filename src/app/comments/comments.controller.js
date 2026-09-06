@@ -29,7 +29,21 @@ const updateCommentContent = async (req, res, next) => {
 
 }
 
+const findCommentForPostOrCreate = async (req, res, next) => {
+    const { postID ,userId, content } = req.body;
+    try {
+        const comment = await commentService.findCommentForPostOrCreate(postID,userId,content);
+        res.status(200).json({
+            comment:comment,
+        });
+    } catch (error) {
+        next(error);
+    }
+
+}
+
 module.exports = {
     createComments,
-    updateCommentContent
+    updateCommentContent,
+    findCommentForPostOrCreate
 }

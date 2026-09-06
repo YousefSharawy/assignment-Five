@@ -11,7 +11,6 @@ async function createNewPost(title, content, user) {
     );
 }
 
-
 async function deletePostById(id) {
     try {
         return await prisma.post.delete({
@@ -46,7 +45,6 @@ async function getAllPosts() {
     });
 }
 
-
 async function getAllPostsWIthCommentCount() {
     const posts = await prisma.post.findMany({
         select: {
@@ -67,4 +65,5 @@ async function getAllPostsWIthCommentCount() {
     ));
 
 }
-module.exports = { createNewPost, deletePostById, getAllPosts, getAllPostsWIthCommentCount }
+
+module.exports = { createNewPost, deletePostById, getAllPosts, getAllPostsWIthCommentCount}
