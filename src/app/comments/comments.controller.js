@@ -52,12 +52,22 @@ const findCommentsWithSpecificWordAndCount = async (req, res, next) => {
     } catch (error) {
         next(error);
     }
-
 }
-
+const retrieveTheThreeMostRecentComments = async (req, res, next) => {
+    const postId = Number(req.params.postId);
+    try {
+        const threeMostRecentComments = await commentService.retrieveTheThreeMostRecentComments(postId);
+        res.status(200).json({
+            comments: threeMostRecentComments
+        });
+    } catch (error) {
+        next(error);
+    }
+}
 module.exports = {
     createComments,
     updateCommentContent,
     findCommentForPostOrCreate,
-    findCommentsWithSpecificWordAndCount
+    findCommentsWithSpecificWordAndCount,
+    retrieveTheThreeMostRecentComments
 }

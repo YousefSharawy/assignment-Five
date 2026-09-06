@@ -47,10 +47,22 @@ async function findCommentsWithSpecificWordAndCount(word) {
     return { comments, count: comments.length };
 
 }
+async function retrieveTheThreeMostRecentComments(postId) {
+    return await prisma.comment.findMany({
+        where:{
+            postId:postId,
+        },
+        orderBy:{
+            createdAt:"desc",
+        },
+        take:3
+    });
+}
 module.exports = {
     createComments,
     createComment,
     updateCommentContent,
     findCommentForPostOrCreate,
-    findCommentsWithSpecificWordAndCount
+    findCommentsWithSpecificWordAndCount,
+    retrieveTheThreeMostRecentComments
 }
